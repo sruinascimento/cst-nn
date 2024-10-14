@@ -28,6 +28,9 @@ public class GlitterSensor extends SensoryCodelet {
     @Override
     public void proc() {
         String infoWumpusWord = wumpusConnectionManager.retrieveInfoWumpusWorld();
+        if (infoWumpusWord == null) {
+            return;
+        }
         glitterMO.setI(parseGlitterInfo(infoWumpusWord));
     }
 

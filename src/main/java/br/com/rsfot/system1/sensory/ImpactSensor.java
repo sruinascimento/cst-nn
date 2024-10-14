@@ -28,6 +28,9 @@ public class ImpactSensor extends SensoryCodelet {
     @Override
     public void proc() {
         String infoWumpusWord = wumpusConnectionManager.retrieveInfoWumpusWorld();
+        if (infoWumpusWord == null) {
+            return;
+        }
         impactMO.setI(parseImpactInfo(infoWumpusWord));
     }
 

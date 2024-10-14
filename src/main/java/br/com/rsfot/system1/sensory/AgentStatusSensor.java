@@ -28,6 +28,14 @@ public class AgentStatusSensor extends SensoryCodelet {
     @Override
     public void proc() {
         String infoWumpusWord = wumpusConnectionManager.retrieveInfoWumpusWorld();
+        if (infoWumpusWord == null) {
+            try {
+                wumpusConnectionManager.close();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            return;
+        }
         agentStatusMO.setI(parseAgentStatusInfo(infoWumpusWord));
     }
 
@@ -52,8 +60,8 @@ public class AgentStatusSensor extends SensoryCodelet {
 
         public AgentStatus(String coordinate, boolean isAlive, boolean hasGold, boolean hasArrow) {
             this(
-                    Integer.parseInt(coordinate.split(",")[0]),
-                    Integer.parseInt(coordinate.split(",")[1]),
+                    Integer.parseInt(coordinate.replaceAll("[^0-9,]", "").split(",")[0]),
+                    Integer.parseInt(coordinate.replaceAll("[^0-9,]", "").split(",")[1]),
                     isAlive ? 1 : 0,
                     hasGold ? 1 : 0,
                     hasArrow ? 1 : 0

@@ -27,6 +27,9 @@ public class BreezeSensor extends SensoryCodelet {
     @Override
     public void proc() {
         String infoWumpusWord = wumpusConnectionManager.retrieveInfoWumpusWorld();
+        if (infoWumpusWord == null) {
+            return;
+        }
         breezeMO.setI(parseBreezeInfo(infoWumpusWord));
     }
 

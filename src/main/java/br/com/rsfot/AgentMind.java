@@ -3,11 +3,12 @@ package br.com.rsfot;
 import br.com.rsfot.socket.WumpusConnectionManager;
 import br.com.rsfot.system1.motor.AgentActuator;
 import br.com.rsfot.system1.sensory.*;
-import br.com.rsfot.system2.learning.NNLearningCodelet;
+import br.com.rsfot.system2.learning.QLearningCodelet;
 import br.unicamp.cst.core.entities.MemoryObject;
 import br.unicamp.cst.core.entities.Mind;
+import br.unicamp.meca.mind.MecaMind;
 
-public class AgentMind extends Mind {
+public class AgentMind extends MecaMind {
 
     public AgentMind(WumpusConnectionManager wumpusConnectionManager) {
         //Declare the memory objects
@@ -48,15 +49,25 @@ public class AgentMind extends Mind {
 
 
         //Declare and Create the LLM Code let
-        NNLearningCodelet nnLearningCodelet = new NNLearningCodelet();
-        nnLearningCodelet.addInput(agentStatusMO);
-        nnLearningCodelet.addInput(breezeMO);
-        nnLearningCodelet.addInput(glitterMO);
-        nnLearningCodelet.addInput(impactMO);
-        nnLearningCodelet.addInput(stenchMO);
-        nnLearningCodelet.addInput(wumpusDeadMO);
-        nnLearningCodelet.addOutput(nextActionMO);
-        insertCodelet(nnLearningCodelet);
+//        NNLearningCodelet nnLearningCodelet = new NNLearningCodelet();
+//        nnLearningCodelet.addInput(agentStatusMO);
+//        nnLearningCodelet.addInput(breezeMO);
+//        nnLearningCodelet.addInput(glitterMO);
+//        nnLearningCodelet.addInput(impactMO);
+//        nnLearningCodelet.addInput(stenchMO);
+//        nnLearningCodelet.addInput(wumpusDeadMO);
+//        nnLearningCodelet.addOutput(nextActionMO);
+//        insertCodelet(nnLearningCodelet);
+
+        QLearningCodelet qLearningCodelet = new QLearningCodelet();
+        qLearningCodelet.addInput(agentStatusMO);
+        qLearningCodelet.addInput(breezeMO);
+        qLearningCodelet.addInput(glitterMO);
+        qLearningCodelet.addInput(impactMO);
+        qLearningCodelet.addInput(stenchMO);
+        qLearningCodelet.addInput(wumpusDeadMO);
+        qLearningCodelet.addOutput(nextActionMO);
+        insertCodelet(qLearningCodelet);
 
 
         //Declare and create the actuators

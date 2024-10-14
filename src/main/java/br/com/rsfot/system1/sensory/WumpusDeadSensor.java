@@ -27,6 +27,9 @@ public class WumpusDeadSensor extends SensoryCodelet {
     @Override
     public void proc() {
         String infoWumpusWord = wumpusConnectionManager.retrieveInfoWumpusWorld();
+        if (infoWumpusWord == null) {
+            return;
+        }
         wumpusDeadMO.setI(parseWumpusDeadInfo(infoWumpusWord));
     }
 

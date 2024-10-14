@@ -1,0 +1,11 @@
+/home/rui/Desktop/TCC/app/cst-nn/src/main/java/br/com/rsfot/AgentMind.java
+/home/rui/Desktop/TCC/app/cst-nn/src/main/java/br/com/rsfot/socket/WumpusConnectionManager.java
+/home/rui/Desktop/TCC/app/cst-nn/src/main/java/br/com/rsfot/system1/behavioral/ReactiveActionSelector.java
+/home/rui/Desktop/TCC/app/cst-nn/src/main/java/br/com/rsfot/system1/motor/AgentActuator.java
+/home/rui/Desktop/TCC/app/cst-nn/src/main/java/br/com/rsfot/system1/sensory/AgentStatusSensor.java
+/home/rui/Desktop/TCC/app/cst-nn/src/main/java/br/com/rsfot/system1/sensory/BreezeSensor.java
+/home/rui/Desktop/TCC/app/cst-nn/src/main/java/br/com/rsfot/system1/sensory/GlitterSensor.java
+/home/rui/Desktop/TCC/app/cst-nn/src/main/java/br/com/rsfot/system1/sensory/ImpactSensor.java
+/home/rui/Desktop/TCC/app/cst-nn/src/main/java/br/com/rsfot/system1/sensory/StenchSensor.java
+/home/rui/Desktop/TCC/app/cst-nn/src/main/java/br/com/rsfot/system1/sensory/WumpusDeadSensor.java
+/home/rui/Desktop/TCC/app/cst-nn/src/main/java/br/com/rsfot/system2/learning/NNLearningCodelet.java
