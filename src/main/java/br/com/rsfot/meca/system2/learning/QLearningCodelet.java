@@ -1,6 +1,6 @@
-package br.com.rsfot.system2.learning;
+package br.com.rsfot.meca.system2.learning;
 
-import br.com.rsfot.system1.sensory.AgentStatusSensor;
+import br.com.rsfot.meca.system1.sensory.AgentStatusSensor;
 import br.unicamp.cst.core.entities.Codelet;
 import br.unicamp.cst.core.entities.Memory;
 
@@ -28,32 +28,33 @@ public class QLearningCodelet extends Codelet {
 
     @Override
     public void accessMemoryObjects() {
+        int index = 0;
         if (agentStatusMO == null) {
-            this.agentStatusMO = this.getInput("AGENT_STATUS_MO");
+            this.agentStatusMO = this.getInput("AGENT_STATUS_MO", index);
         }
 
         if (wumpusDeadMO == null) {
-            this.wumpusDeadMO = this.getInput("WUMPUS_DEAD_MO");
+            this.wumpusDeadMO = this.getInput("WUMPUS_DEAD_MO", index);
         }
 
         if (breezeMO == null) {
-            this.breezeMO = this.getInput("BREEZE_MO");
+            this.breezeMO = this.getInput("BREEZE_MO", index);
         }
 
         if (stenchMO == null) {
-            this.stenchMO = this.getInput("STENCH_MO");
+            this.stenchMO = this.getInput("STENCH_MO", index);
         }
 
         if (glitterMO == null) {
-            this.glitterMO = this.getInput("GLITTER_MO");
+            this.glitterMO = this.getInput("GLITTER_MO", index);
         }
 
         if (impactMO == null) {
-            this.impactMO = this.getInput("IMPACT_MO");
+            this.impactMO = this.getInput("IMPACT_MO", index);
         }
 
         if (nextActionMO == null) {
-            this.nextActionMO = this.getOutput("NEXT_ACTION_MO");
+            this.nextActionMO = this.getOutput("NEXT_ACTION_MO", index);
         }
     }
 

@@ -5,7 +5,6 @@ import br.com.rsfot.system1.motor.AgentActuator;
 import br.com.rsfot.system1.sensory.*;
 import br.com.rsfot.system2.learning.QLearningCodelet;
 import br.unicamp.cst.core.entities.MemoryObject;
-import br.unicamp.cst.core.entities.Mind;
 import br.unicamp.meca.mind.MecaMind;
 
 public class AgentMind extends MecaMind {
@@ -39,26 +38,17 @@ public class AgentMind extends MecaMind {
         insertCodelet(impactSensor);
 
 
-        AgentStatusSensor agentStatusSensor = new AgentStatusSensor("AGENT_STATUS_SENSOR", wumpusConnectionManager);
-        agentStatusSensor.addOutput(agentStatusMO);
-        insertCodelet(agentStatusSensor);
-
         WumpusDeadSensor wumpusDeadSensor = new WumpusDeadSensor("WUMPUS_DEAD_SENSOR", wumpusConnectionManager);
         wumpusDeadSensor.addOutput(wumpusDeadMO);
         insertCodelet(wumpusDeadSensor);
 
 
-        //Declare and Create the LLM Code let
-//        NNLearningCodelet nnLearningCodelet = new NNLearningCodelet();
-//        nnLearningCodelet.addInput(agentStatusMO);
-//        nnLearningCodelet.addInput(breezeMO);
-//        nnLearningCodelet.addInput(glitterMO);
-//        nnLearningCodelet.addInput(impactMO);
-//        nnLearningCodelet.addInput(stenchMO);
-//        nnLearningCodelet.addInput(wumpusDeadMO);
-//        nnLearningCodelet.addOutput(nextActionMO);
-//        insertCodelet(nnLearningCodelet);
+        AgentStatusSensor agentStatusSensor = new AgentStatusSensor("AGENT_STATUS_SENSOR", wumpusConnectionManager);
+        agentStatusSensor.addOutput(agentStatusMO);
+        insertCodelet(agentStatusSensor);
 
+
+        //Declare and create the learning codelet
         QLearningCodelet qLearningCodelet = new QLearningCodelet();
         qLearningCodelet.addInput(agentStatusMO);
         qLearningCodelet.addInput(breezeMO);
@@ -74,21 +64,6 @@ public class AgentMind extends MecaMind {
         AgentActuator agentActuator = new AgentActuator("AGENT_ACTUATOR", wumpusConnectionManager);
         agentActuator.addInput(nextActionMO);
         insertCodelet(agentActuator);
-
-
-        //Declare behavior codelets
-//        NextActionReactive nextActionReactive = new NextActionReactive();
-//        nextActionReactive.addInput(glitterMO);
-//        nextActionReactive.addInput(stenchMO);
-//        nextActionReactive.addInput(breezeMO);
-//        nextActionReactive.addOutput(nextActionMO);
-//        nextActionReactive.addOutput(previousActionMO);
-//        insertCodelet(nextActionReactive);
-
-
-
-//        MindViewer mindViewer = new MindViewer(this, "Wumpus World Agent Mind", this.getCodeRack().getAllCodelets());
-//        mindViewer.setVisible(true);
 
 
         this.start();
