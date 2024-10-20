@@ -1,17 +1,17 @@
 package br.com.rsfot.system1.sensory;
 
-import br.com.rsfot.socket.WumpusConnectionManager;
+import br.com.rsfot.game.GameWumpus;
 import br.unicamp.cst.core.entities.Memory;
 import br.unicamp.meca.system1.codelets.SensoryCodelet;
 import org.json.JSONObject;
 
 public class BreezeSensor extends SensoryCodelet {
-    private final WumpusConnectionManager wumpusConnectionManager;
+    private GameWumpus gameWumpus;
     private Memory breezeMO;
 
-    public BreezeSensor(String id, WumpusConnectionManager wumpusConnectionManager) {
+    public BreezeSensor(String id, GameWumpus gameWumpus) {
         super(id);
-        this.wumpusConnectionManager = wumpusConnectionManager;
+        this.gameWumpus = gameWumpus;
     }
 
     @Override
@@ -26,11 +26,8 @@ public class BreezeSensor extends SensoryCodelet {
 
     @Override
     public void proc() {
-        String infoWumpusWord = wumpusConnectionManager.retrieveInfoWumpusWorld();
-        if (infoWumpusWord == null) {
-            return;
-        }
-        breezeMO.setI(parseBreezeInfo(infoWumpusWord));
+        String infoWumpusWorld = gameWumpus.getCurrentStateOfAgent();
+        breezeMO.setI(parseBreezeInfo(infoWumpusWorld));
     }
 
     private boolean parseBreezeInfo(String json) {

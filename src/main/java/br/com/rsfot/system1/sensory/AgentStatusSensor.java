@@ -1,17 +1,17 @@
 package br.com.rsfot.system1.sensory;
 
-import br.com.rsfot.socket.WumpusConnectionManager;
+import br.com.rsfot.game.GameWumpus;
 import br.unicamp.cst.core.entities.Memory;
 import br.unicamp.meca.system1.codelets.SensoryCodelet;
 import org.json.JSONObject;
 
 public class AgentStatusSensor extends SensoryCodelet {
-    private final WumpusConnectionManager wumpusConnectionManager;
+    private GameWumpus gameWumpus;
     private Memory agentStatusMO;
 
-    public AgentStatusSensor(String id, WumpusConnectionManager wumpusConnectionManager) {
+    public AgentStatusSensor(String id, GameWumpus gameWumpus) {
         super(id);
-        this.wumpusConnectionManager = wumpusConnectionManager;
+        this.gameWumpus =gameWumpus;
     }
 
     @Override
@@ -27,16 +27,8 @@ public class AgentStatusSensor extends SensoryCodelet {
 
     @Override
     public void proc() {
-        String infoWumpusWord = wumpusConnectionManager.retrieveInfoWumpusWorld();
-        if (infoWumpusWord == null) {
-            try {
-                wumpusConnectionManager.close();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-            return;
-        }
-        agentStatusMO.setI(parseAgentStatusInfo(infoWumpusWord));
+        String infoWumpusWorld = gameWumpus.getCurrentStateOfAgent();
+        agentStatusMO.setI(parseAgentStatusInfo(infoWumpusWorld));
     }
 
     private AgentStatus parseAgentStatusInfo(String infoWumpusWord) {

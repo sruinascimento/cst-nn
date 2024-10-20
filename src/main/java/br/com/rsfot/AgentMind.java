@@ -1,16 +1,15 @@
 package br.com.rsfot;
 
-import br.com.rsfot.socket.WumpusConnectionManager;
+import br.com.rsfot.game.GameWumpus;
 import br.com.rsfot.system1.motor.AgentActuator;
 import br.com.rsfot.system1.sensory.*;
 import br.com.rsfot.system2.learning.QLearningCodelet;
 import br.unicamp.cst.core.entities.MemoryObject;
-import br.unicamp.cst.core.entities.Mind;
 import br.unicamp.meca.mind.MecaMind;
 
 public class AgentMind extends MecaMind {
 
-    public AgentMind(WumpusConnectionManager wumpusConnectionManager) {
+    public AgentMind(GameWumpus gameWumpus) {
         //Declare the memory objects
         MemoryObject stenchMO = this.createMemoryObject("STENCH_MO");
         MemoryObject breezeMO = this.createMemoryObject("BREEZE_MO");
@@ -22,29 +21,29 @@ public class AgentMind extends MecaMind {
 
 
         //Declare and create the sensors
-        StenchSensor stenchSensor = new StenchSensor("STENCH_SENSOR", wumpusConnectionManager);
+        StenchSensor stenchSensor = new StenchSensor("STENCH_SENSOR", gameWumpus);
         stenchSensor.addOutput(stenchMO);
         insertCodelet(stenchSensor);
 
-        BreezeSensor breezeSensor = new BreezeSensor("BREEZE_SENSOR", wumpusConnectionManager);
+        BreezeSensor breezeSensor = new BreezeSensor("BREEZE_SENSOR", gameWumpus);
         breezeSensor.addOutput(breezeMO);
         insertCodelet(breezeSensor);
 
-        GlitterSensor glitterSensor = new GlitterSensor("GLITTER_SENSOR", wumpusConnectionManager);
+        GlitterSensor glitterSensor = new GlitterSensor("GLITTER_SENSOR", gameWumpus);
         glitterSensor.addOutput(glitterMO);
         insertCodelet(glitterSensor);
 
-        ImpactSensor impactSensor = new ImpactSensor("IMPACT_SENSOR", wumpusConnectionManager);
+        ImpactSensor impactSensor = new ImpactSensor("IMPACT_SENSOR", gameWumpus);
         impactSensor.addOutput(impactMO);
         insertCodelet(impactSensor);
 
 
-        WumpusDeadSensor wumpusDeadSensor = new WumpusDeadSensor("WUMPUS_DEAD_SENSOR", wumpusConnectionManager);
+        WumpusDeadSensor wumpusDeadSensor = new WumpusDeadSensor("WUMPUS_DEAD_SENSOR", gameWumpus);
         wumpusDeadSensor.addOutput(wumpusDeadMO);
         insertCodelet(wumpusDeadSensor);
 
 
-        AgentStatusSensor agentStatusSensor = new AgentStatusSensor("AGENT_STATUS_SENSOR", wumpusConnectionManager);
+        AgentStatusSensor agentStatusSensor = new AgentStatusSensor("AGENT_STATUS_SENSOR", gameWumpus);
         agentStatusSensor.addOutput(agentStatusMO);
         insertCodelet(agentStatusSensor);
 
@@ -62,29 +61,20 @@ public class AgentMind extends MecaMind {
 
 
         //Declare and create the actuators
-        AgentActuator agentActuator = new AgentActuator("AGENT_ACTUATOR", wumpusConnectionManager);
+        AgentActuator agentActuator = new AgentActuator("AGENT_ACTUATOR", gameWumpus);
         agentActuator.addInput(nextActionMO);
         insertCodelet(agentActuator);
 
     }
 
     public static void main(String[] args) {
-        try {
 
-            WumpusConnectionManager wumpusConnectionManager = new WumpusConnectionManager("localhost", 7373);
+        GameWumpus environment = new GameWumpus();
 
-            if (wumpusConnectionManager == null) {
-                throw new RuntimeException("Can not connect to the Wumpus World server.");
-            }
+        AgentMind agentMind = new AgentMind(environment);
+        agentMind.start();
+        agentMind.start();
 
-
-
-            AgentMind agentMind = new AgentMind(wumpusConnectionManager);
-            agentMind.start();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 }

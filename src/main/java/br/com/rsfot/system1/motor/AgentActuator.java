@@ -1,17 +1,17 @@
 package br.com.rsfot.system1.motor;
 
-import br.com.rsfot.socket.WumpusConnectionManager;
+import br.com.rsfot.game.GameWumpus;
 import br.unicamp.cst.core.entities.Memory;
 import br.unicamp.meca.system1.codelets.MotorCodelet;
 
 
 public class AgentActuator extends MotorCodelet {
-    private final WumpusConnectionManager wumpusConnectionManager;
+    private GameWumpus gameWumpus;
     private Memory nextActionMO;
 
-    public AgentActuator(String id, WumpusConnectionManager wumpusConnectionManager) {
+    public AgentActuator(String id, GameWumpus gameWumpus) {
         super(id);
-        this.wumpusConnectionManager = wumpusConnectionManager;
+        this.gameWumpus = gameWumpus;
     }
 
     @Override
@@ -28,10 +28,14 @@ public class AgentActuator extends MotorCodelet {
 
     @Override
     public void proc() {
+        if (gameWumpus.isGameOver()) {
+            System.out.println(">>>> Game Over");
+            System.out.println(">>>> report: " + gameWumpus.report());
+            gameWumpus.resetGame();
+            System.exit(1);
+        }
         if (this.nextActionMO != null && this.nextActionMO.getI() != null) {
-            if(!wumpusConnectionManager.isClosed()) {
-                wumpusConnectionManager.sendCommand(nextActionMO.getI().toString());
-            }
+            gameWumpus.executeAction((String) this.nextActionMO.getI());
         }
     }
 }

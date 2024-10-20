@@ -1,17 +1,17 @@
 package br.com.rsfot.system1.sensory;
 
-import br.com.rsfot.socket.WumpusConnectionManager;
+import br.com.rsfot.game.GameWumpus;
 import br.unicamp.cst.core.entities.Memory;
 import br.unicamp.meca.system1.codelets.SensoryCodelet;
 import org.json.JSONObject;
 
 public class GlitterSensor extends SensoryCodelet {
-    private final WumpusConnectionManager wumpusConnectionManager;
+    private GameWumpus gameWumpus;
     private Memory glitterMO;
 
-    public GlitterSensor(String id, WumpusConnectionManager wumpusConnectionManager) {
+    public GlitterSensor(String id, GameWumpus gameWumpus) {
         super(id);
-        this.wumpusConnectionManager = wumpusConnectionManager;
+        this.gameWumpus = gameWumpus;
     }
 
     @Override
@@ -27,11 +27,8 @@ public class GlitterSensor extends SensoryCodelet {
 
     @Override
     public void proc() {
-        String infoWumpusWord = wumpusConnectionManager.retrieveInfoWumpusWorld();
-        if (infoWumpusWord == null) {
-            return;
-        }
-        glitterMO.setI(parseGlitterInfo(infoWumpusWord));
+        String infoWumpusWorld = gameWumpus.getCurrentStateOfAgent();
+        glitterMO.setI(parseGlitterInfo(infoWumpusWorld));
     }
 
     private boolean parseGlitterInfo(String json) {
