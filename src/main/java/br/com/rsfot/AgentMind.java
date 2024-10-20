@@ -5,19 +5,20 @@ import br.com.rsfot.system1.motor.AgentActuator;
 import br.com.rsfot.system1.sensory.*;
 import br.com.rsfot.system2.learning.QLearningCodelet;
 import br.unicamp.cst.core.entities.MemoryObject;
+import br.unicamp.cst.core.entities.Mind;
 import br.unicamp.meca.mind.MecaMind;
 
 public class AgentMind extends MecaMind {
 
     public AgentMind(WumpusConnectionManager wumpusConnectionManager) {
         //Declare the memory objects
-        MemoryObject stenchMO = createMemoryObject("STENCH_MO");
-        MemoryObject breezeMO = createMemoryObject("BREEZE_MO");
-        MemoryObject glitterMO = createMemoryObject("GLITTER_MO");
-        MemoryObject impactMO = createMemoryObject("IMPACT_MO");
-        MemoryObject agentStatusMO = createMemoryObject("AGENT_STATUS_MO");
-        MemoryObject nextActionMO = createMemoryObject("NEXT_ACTION_MO");
-        MemoryObject wumpusDeadMO = createMemoryObject("WUMPUS_DEAD_MO");
+        MemoryObject stenchMO = this.createMemoryObject("STENCH_MO");
+        MemoryObject breezeMO = this.createMemoryObject("BREEZE_MO");
+        MemoryObject glitterMO = this.createMemoryObject("GLITTER_MO");
+        MemoryObject impactMO = this.createMemoryObject("IMPACT_MO");
+        MemoryObject agentStatusMO = this.createMemoryObject("AGENT_STATUS_MO");
+        MemoryObject nextActionMO = this.createMemoryObject("NEXT_ACTION_MO");
+        MemoryObject wumpusDeadMO = this.createMemoryObject("WUMPUS_DEAD_MO");
 
 
         //Declare and create the sensors
@@ -65,9 +66,6 @@ public class AgentMind extends MecaMind {
         agentActuator.addInput(nextActionMO);
         insertCodelet(agentActuator);
 
-
-        this.start();
-
     }
 
     public static void main(String[] args) {
@@ -78,6 +76,8 @@ public class AgentMind extends MecaMind {
             if (wumpusConnectionManager == null) {
                 throw new RuntimeException("Can not connect to the Wumpus World server.");
             }
+
+
 
             AgentMind agentMind = new AgentMind(wumpusConnectionManager);
             agentMind.start();

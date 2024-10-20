@@ -77,5 +77,11 @@
             <version>1.7.32</version>
         </dependency>
 
+        <dependency>
+            <groupId>br.com.rsoft</groupId>
+            <artifactId>wumpus-world</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
     </dependencies>
 </project>
