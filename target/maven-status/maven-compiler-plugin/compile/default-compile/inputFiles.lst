@@ -1,5 +1,5 @@
 /home/rui/Desktop/TCC/app/cst-nn/src/main/java/br/com/rsfot/AgentMind.java
-/home/rui/Desktop/TCC/app/cst-nn/src/main/java/br/com/rsfot/socket/WumpusConnectionManager.java
+/home/rui/Desktop/TCC/app/cst-nn/src/main/java/br/com/rsfot/game/GameWumpus.java
 /home/rui/Desktop/TCC/app/cst-nn/src/main/java/br/com/rsfot/system1/motor/AgentActuator.java
 /home/rui/Desktop/TCC/app/cst-nn/src/main/java/br/com/rsfot/system1/sensory/AgentStatusSensor.java
 /home/rui/Desktop/TCC/app/cst-nn/src/main/java/br/com/rsfot/system1/sensory/BreezeSensor.java

@@ -1,11 +1,14 @@
 package br.com.rsfot;
 
+import br.com.rsfot.game.CaveMatrix;
 import br.com.rsfot.game.GameWumpus;
 import br.com.rsfot.system1.motor.AgentActuator;
 import br.com.rsfot.system1.sensory.*;
 import br.com.rsfot.system2.learning.QLearningCodelet;
 import br.unicamp.cst.core.entities.MemoryObject;
 import br.unicamp.meca.mind.MecaMind;
+
+import java.util.List;
 
 public class AgentMind extends MecaMind {
 
@@ -63,18 +66,14 @@ public class AgentMind extends MecaMind {
         //Declare and create the actuators
         AgentActuator agentActuator = new AgentActuator("AGENT_ACTUATOR", gameWumpus);
         agentActuator.addInput(nextActionMO);
-        insertCodelet(agentActuator);
+        setMotorCodelets(List.of(agentActuator));
 
     }
 
     public static void main(String[] args) {
-
-        GameWumpus environment = new GameWumpus();
-
+        GameWumpus environment = new GameWumpus(CaveMatrix.SECOND_CAVE.getCave());
         AgentMind agentMind = new AgentMind(environment);
         agentMind.start();
-        agentMind.start();
-
     }
 
 }

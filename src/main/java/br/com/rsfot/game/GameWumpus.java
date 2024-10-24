@@ -16,14 +16,7 @@ public class GameWumpus {
     private String currentStateOfAgent;
     private final Logger LOGGER = Logger.getLogger(GameWumpus.class.getName());
 
-    public GameWumpus() {
-        String[][] wumpusCave = {
-                {"", "", "", "PIT"},
-                {"PIT", "", "WUMPUS", ""},
-                {"", "GOLD", "", ""},
-                {"PIT", "", "", "PIT"}
-        };
-
+    public GameWumpus(String[][] wumpusCave) {
         this.huntWumpus = new HuntWumpus(new Environment(wumpusCave));
         currentStateOfAgent = Report.generate(huntWumpus, false);
     }
@@ -57,14 +50,7 @@ public class GameWumpus {
     }
 
     public void resetGame() {
-        String[][] wumpusCave = {
-                {"", "", "", "PIT"},
-                {"PIT", "", "WUMPUS", ""},
-                {"", "GOLD", "", ""},
-                {"PIT", "", "", "PIT"}
-        };
-
-        this.huntWumpus = new HuntWumpus(new Environment(wumpusCave));
+        this.huntWumpus = new HuntWumpus(new Environment(CaveMatrix.SECOND_CAVE.getCave()));
         currentStateOfAgent = Report.generate(huntWumpus, false);
     }
 

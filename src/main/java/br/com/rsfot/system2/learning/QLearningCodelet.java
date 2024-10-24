@@ -28,8 +28,9 @@ public class QLearningCodelet extends EpisodicLearningCodelet {
 
     public QLearningCodelet() {
         try {
-            qTableLoader.loadQTableV2("qlearning-table/train_020_qTable4x4_alpha01_gamma099_epsilon1_epsilonDecay0001_episodes10k.dat");
+            qTableLoader.loadQTable("train_second_cave/train_20241023_224902_qTable4x4_alpha0.10_gamma0.99_epsilon1.00_epsilonDecay0.01_episodes_5000k.dat");
         } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
             System.exit(1);
         }
     }
@@ -93,7 +94,7 @@ public class QLearningCodelet extends EpisodicLearningCodelet {
             return;
         }
 
-        ActionSelector actionSelector = new ActionSelector(qTableLoader.getQTableV2(), possibleActions);
+        ActionSelector actionSelector = new ActionSelector(qTableLoader.getQTable(), possibleActions);
         List<Integer> inputAsNumericRepresentation = getInputAsNumericRepresentation();
         String predictedAction = actionSelector.chooseAction(inputAsNumericRepresentation);
         System.out.println(">>>>>> QLearning CODELET -> Predicted action: " + predictedAction);
@@ -102,30 +103,6 @@ public class QLearningCodelet extends EpisodicLearningCodelet {
     }
 
     private List<Integer> getInputAsNumericRepresentation() {
-//        int coordinateX = ((AgentStatusSensor.AgentStatus) this.agentStatusMO.getI()).coordinateX();
-//        int coordinateY = ((AgentStatusSensor.AgentStatus) this.agentStatusMO.getI()).coordinateY();
-//        int isAlive = ((AgentStatusSensor.AgentStatus) this.agentStatusMO.getI()).isAlive();
-//        int hasGold = ((AgentStatusSensor.AgentStatus) this.agentStatusMO.getI()).hasGold();
-//        int hasArrow = ((AgentStatusSensor.AgentStatus) this.agentStatusMO.getI()).hasArrow();
-//        int isWumpusAlive = (boolean) this.wumpusDeadMO.getI() ? 0 : 1;
-//        int breeze = (boolean) this.breezeMO.getI() ? 1 : 0;
-//        int stench = (boolean) this.stenchMO.getI() ? 1 : 0;
-//        int glitter = (boolean) this.glitterMO.getI() ? 1 : 0;
-//        int impactValue = (boolean) this.impactMO.getI() ? 1 : 0;
-//
-//        return List.of(
-//                coordinateX,
-//                coordinateY,
-//                isAlive,
-//                hasGold,
-//                hasArrow,
-//                isWumpusAlive,
-//                breeze,
-//                stench,
-//                glitter,
-//                impactValue
-//        );
-
         int coordinateX = ((AgentStatusSensor.AgentStatus) this.agentStatusMO.getI()).coordinateX();
         int coordinateY = ((AgentStatusSensor.AgentStatus) this.agentStatusMO.getI()).coordinateY();
         int isAlive = ((AgentStatusSensor.AgentStatus) this.agentStatusMO.getI()).isAlive();
@@ -139,19 +116,4 @@ public class QLearningCodelet extends EpisodicLearningCodelet {
 
         return List.of(coordinateX, coordinateY, isAlive, hasGold, hasArrow, isWumpusAlive, breeze, stench, glitter, impactValue);
     }
-
-//    private List<Integer> generateStateRepresentation(HuntWumpus huntWumpus, boolean impact) {
-//        int coordinateX = huntWumpus.getAgent().getCoordinateX();
-//        int coordinateY = huntWumpus.getAgent().getCoordinateY();
-//        int isAlive = huntWumpus.getAgent().isAlive() ? 1 : 0;
-//        int hasGold = huntWumpus.getAgent().hasGold() ? 1 : 0;
-//        int hasArrow = huntWumpus.getAgent().hasArrow() ? 1 : 0;
-//        int isWumpusAlive = huntWumpus.getAgent().isKilledTheWumpus() ? 0 : 1;
-//        int breeze = huntWumpus.getEnvironment().getFeelingsByCoordinate().get(huntWumpus.getAgent().getStringCoordinate()).contains(BREEZE) ? 1 : 0;
-//        int stench = huntWumpus.getEnvironment().getFeelingsByCoordinate().get(huntWumpus.getAgent().getStringCoordinate()).contains(STENCH) ? 1 : 0;
-//        int glitter = huntWumpus.getEnvironment().getFeelingsByCoordinate().get(huntWumpus.getAgent().getStringCoordinate()).contains(GLITTER) && !huntWumpus.getAgent().hasGold() ? 1 : 0;
-//        int impactValue = impact ? 1 : 0;
-//
-//        return List.of(coordinateX, coordinateY, isAlive, hasGold, hasArrow, isWumpusAlive, breeze, stench, glitter, impactValue);
-//    }
 }

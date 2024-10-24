@@ -8,23 +8,18 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ActionSelector {
-//    private Map<List<Integer>, Map<String, Double>> qTable;
-    private Map<List<Integer>, List<Double>> qTableV2;
+    private Map<List<Integer>, List<Double>> qTable;
     private List<String> possibleActions;
     private Random random = new Random();
 
-//    public ActionSelector(Map<List<Integer>, Map<String, Double>> qTable, List<String> possibleActions) {
-//        this.qTable = qTable;
-//        this.possibleActions = possibleActions;
-//    }
 
-    public ActionSelector(Map<List<Integer>, List<Double>> qTableV2, List<String> possibleActions) {
-        this.qTableV2 = qTableV2;
+    public ActionSelector(Map<List<Integer>, List<Double>> qTable, List<String> possibleActions) {
+        this.qTable = qTable;
         this.possibleActions = possibleActions;
     }
 
     public String chooseAction(List<Integer> state) {
-        List<Double> actions = qTableV2.get(state);
+        List<Double> actions = qTable.get(state);
         if (actions == null || actions.isEmpty()) {
             // Se não houver ações para o estado, escolher uma ação aleatória
             return possibleActions.get(random.nextInt(possibleActions.size()));
