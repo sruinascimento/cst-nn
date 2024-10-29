@@ -28,7 +28,8 @@ public class QLearningCodelet extends EpisodicLearningCodelet {
 
     public QLearningCodelet() {
         try {
-            qTableLoader.loadQTable("train_second_cave/train_20241023_224902_qTable4x4_alpha0.10_gamma0.99_epsilon1.00_epsilonDecay0.01_episodes_5000k.dat");
+            qTableLoader.loadQTable("qlearning-table/train_022_qTable4x4_alpha01_gamma099_epsilon1_epsilonDecay001_episodes2k.dat");
+//            qTableLoader.loadQTable("train_second_cave/train_20241028_203603_qTable4x4_alpha0.10_gamma0.99_epsilon1.00_epsilonDecay0.01_episodes_2000.dat");
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             System.exit(1);

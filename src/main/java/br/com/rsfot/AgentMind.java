@@ -5,9 +5,14 @@ import br.com.rsfot.game.GameWumpus;
 import br.com.rsfot.system1.motor.AgentActuator;
 import br.com.rsfot.system1.sensory.*;
 import br.com.rsfot.system2.learning.QLearningCodelet;
+import br.com.rsfot.training.AgentQLearningCoach;
+import br.com.rsoft.domain.Environment;
 import br.unicamp.cst.core.entities.MemoryObject;
 import br.unicamp.meca.mind.MecaMind;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class AgentMind extends MecaMind {
@@ -66,14 +71,49 @@ public class AgentMind extends MecaMind {
         //Declare and create the actuators
         AgentActuator agentActuator = new AgentActuator("AGENT_ACTUATOR", gameWumpus);
         agentActuator.addInput(nextActionMO);
-        setMotorCodelets(List.of(agentActuator));
-
+        insertCodelet(agentActuator);
     }
 
     public static void main(String[] args) {
-        GameWumpus environment = new GameWumpus(CaveMatrix.SECOND_CAVE.getCave());
-        AgentMind agentMind = new AgentMind(environment);
-        agentMind.start();
+        Environment environment = new Environment(CaveMatrix.SECOND_CAVE.getCave());
+
+
+        // Train the agent
+        double alpha = 0.1;
+        double gamma = 0.99;
+        double epsilon = 1.0;
+        double epsilonDecay = 0.001;
+        int numberOfEpisodes = 2000;
+        AgentQLearningCoach agentCoach = new AgentQLearningCoach(alpha, gamma, epsilon, epsilonDecay);
+
+        // Train the agent and save the Q-table
+        String episodesReportFileName = createEpisodesReportFileName(alpha, gamma, epsilon, epsilonDecay, numberOfEpisodes);
+        String qTableFileName = createQTableFileName(alpha, gamma, epsilon, epsilonDecay, numberOfEpisodes);
+        agentCoach.train(environment, numberOfEpisodes, episodesReportFileName);
+        try {
+            agentCoach.saveQTableDat(qTableFileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//        GameWumpus game = new GameWumpus(CaveMatrix.SECOND_CAVE.getCave());
+//        AgentMind agentMind = new AgentMind(game);
+
+    }
+
+
+    private static String createEpisodesReportFileName(double alpha, double gamma, double epsilon, double epsilonDecay, int numberOfEpisodes) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+        String timestamp = LocalDateTime.now().format(formatter);
+        return String.format("train_second_cave/train_%s_episodesReport_alpha%.2f_gamma%.2f_epsilon%.2f_epsilonDecay%.2f_%d.csv",
+                timestamp, alpha, gamma, epsilon, epsilonDecay, numberOfEpisodes);
+    }
+
+    private static String createQTableFileName(double alpha, double gamma, double epsilon, double epsilonDecay, int numberOfEpisodes) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+        String timestamp = LocalDateTime.now().format(formatter);
+        return String.format("train_second_cave/train_%s_qTable4x4_alpha%.2f_gamma%.2f_epsilon%.2f_epsilonDecay%.2f_episodes_%d.dat",
+                timestamp, alpha, gamma, epsilon, epsilonDecay, numberOfEpisodes);
     }
 
 }

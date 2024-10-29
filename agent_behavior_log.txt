@@ -1,0 +1,135 @@
+Action: MOVE EAST
+Action: MOVE EAST
+Action: MOVE EAST
+Action: MOVE EAST
+Action: SHOOT SOUTH
+Action: SHOOT SOUTH
+Action: MOVE EAST
+Action: GRAB
+Action: MOVE NORTH
+Action: MOVE NORTH
+Action: MOVE SOUTH
+Action: MOVE NORTH
+Action: MOVE SOUTH
+Action: SHOOT EAST
+Action: MOVE SOUTH
+Action: MOVE SOUTH
+Action: SHOOT EAST
+Action: MOVE WEST
+Action: MOVE WEST
+Action: MOVE WEST
+Action: MOVE NORTH
+Action: SHOOT EAST
+Action: MOVE SOUTH
+Action: MOVE WEST
+Action: GRAB
+Action: MOVE WEST
+Action: SHOOT EAST
+Action: MOVE EAST
+Action: MOVE EAST
+Action: MOVE NORTH
+Action: SHOOT NORTH
+Action: MOVE EAST
+Action: SHOOT SOUTH
+Action: SHOOT EAST
+Action: SHOOT SOUTH
+Action: MOVE WEST
+Action: GRAB
+Action: MOVE EAST
+Action: GRAB
+Action: MOVE WEST
+Action: SHOOT SOUTH
+Action: MOVE EAST
+Action: SHOOT EAST
+Action: SHOOT SOUTH
+Action: SHOOT EAST
+Action: MOVE EAST
+Action: MOVE NORTH
+Action: MOVE SOUTH
+Action: MOVE SOUTH
+Action: SHOOT NORTH
+Action: MOVE NORTH
+Action: MOVE NORTH
+Action: MOVE SOUTH
+Action: MOVE NORTH
+Action: SHOOT NORTH
+Action: MOVE NORTH
+Action: SHOOT SOUTH
+Action: SHOOT NORTH
+Action: SHOOT EAST
+Action: SHOOT NORTH
+Action: MOVE NORTH
+Action: MOVE SOUTH
+Action: MOVE EAST
+Action: MOVE SOUTH
+Action: MOVE EAST
+Action: GRAB
+Action: SHOOT NORTH
+Action: MOVE SOUTH
+Action: MOVE NORTH
+Action: MOVE NORTH
+Action: GRAB
+Action: MOVE NORTH
+Action: MOVE WEST
+Action: SHOOT NORTH
+Action: MOVE WEST
+Action: MOVE WEST
+Action: Game Over
+EOL
+
+
+Action: MOVE EAST
+Action: MOVE EAST
+Action: MOVE EAST
+Action: MOVE EAST
+Action: SHOOT SOUTH
+Action: SHOOT SOUTH
+Action: MOVE WEST
+Action: MOVE NORTH
+Action: SHOOT NORTH
+Action: SHOOT WEST
+Action: MOVE EAST
+Action: GRAB
+Action: MOVE WEST
+Action: SHOOT NORTH
+Action: MOVE EAST
+Action: MOVE SOUTH
+Action: SHOOT WEST
+Action: MOVE SOUTH
+Action: MOVE SOUTH
+Action: MOVE NORTH
+Action: MOVE WEST
+Action: MOVE SOUTH
+Action: MOVE WEST
+Action: MOVE WEST
+Action: MOVE NORTH
+Action: SHOOT SOUTH
+Action: MOVE SOUTH
+Action: GRAB
+Action: MOVE EAST
+Action: MOVE NORTH
+Action: MOVE EAST
+Action: MOVE EAST
+Action: SHOOT EAST
+Action: MOVE SOUTH
+Action: MOVE NORTH
+Action: SHOOT EAST
+Action: GRAB
+Action: GRAB
+Action: MOVE EAST
+Action: SHOOT WEST
+Action: SHOOT NORTH
+Action: GRAB
+Action: MOVE NORTH
+Action: MOVE NORTH
+Action: MOVE SOUTH
+Action: MOVE NORTH
+Action: SHOOT SOUTH
+Action: SHOOT SOUTH
+Action: MOVE WEST
+Action: MOVE WEST
+Action: MOVE WEST
+Action: Game Over
+
+EOL
+

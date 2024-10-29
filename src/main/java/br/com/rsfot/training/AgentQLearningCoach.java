@@ -121,9 +121,9 @@ public class AgentQLearningCoach {
         HuntWumpus game = new HuntWumpus(environment);
         List<EpisodeReport> episodesData = new ArrayList<>();
         boolean impact = false;
-
         for (int i = 0; i < episodes; i++) {
             int steps = 0;
+            double rewardByEpisode = 0;
             Agent agent = new Agent();
             game.setAgent(agent);
             List<Integer> state = generateStateRepresentation(game, impact);
@@ -132,22 +132,26 @@ public class AgentQLearningCoach {
                 String actionAsString = possibleActions.get(action);
                 List<Object> rewardAndImpact = executeAction(actionAsString, game);
                 impact = (boolean) rewardAndImpact.get(1);
+                rewardByEpisode += (double) rewardAndImpact.get(0);
                 List<Integer> nextState = generateStateRepresentation(game, impact);
                 updateQValue(state, action, (double) rewardAndImpact.get(0), nextState);
                 state = nextState;
                 steps++;
             }
             if (!agent.isAlive()) {
-                double penalty = -1000; // Significant penalty for dying
+                // Significant penalty for dying
+                double penalty = -1000;
+                rewardByEpisode += penalty;
                 updateQValue(state, 0, penalty, state); // Assuming action 0 for terminal state
             }
 
             if (agent.agentWinTheGame()) {
                 double reward = 1000; // Significant reward for winning
+                rewardByEpisode += reward;
                 updateQValue(state, 0, reward, state); // Assuming action 0 for terminal state
             }
 
-            episodesData.add(new EpisodeReport(i, steps, agent.agentWinTheGame(), agent.isKilledTheWumpus()));
+            episodesData.add(new EpisodeReport(i, steps, agent.agentWinTheGame(), agent.isKilledTheWumpus(), agent.hasGold(), rewardByEpisode, alpha, gamma, epsilon, epsilonDecay));
 
             decayEpsilon();
             game.resetGame();
@@ -160,10 +164,10 @@ public class AgentQLearningCoach {
     private void saveEpisodeData(List<EpisodeReport> episodeDataList, String filePath) {
         try (FileWriter fileWriter = new FileWriter(filePath);
              CSVPrinter csvPrinter = new CSVPrinter(fileWriter, CSVFormat.DEFAULT
-                     .withHeader("episodeNumber", "steps", "agentWinTheGame", "agentKilledTheWumpus"))) {
+                     .withHeader("episodeNumber", "steps", "agentWinTheGame", "agentKilledTheWumpus", "agentHasGold", "reward", "alpha", "gamma", "epsilon", "epsilonDecay"))) {
 
             for (EpisodeReport report : episodeDataList) {
-                csvPrinter.printRecord(report.episodeNumber(), report.steps(), report.agentWinTheGame(), report.agentKilledTheWumpus());
+                csvPrinter.printRecord(report.episodeNumber(), report.steps(), report.agentWinTheGame(), report.agentKilledTheWumpus(), report.agentHasGold() ,report.totalReward(), report.alpha(), report.gamma(), report.epsilon(), report.epsilonDecay());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -306,16 +310,16 @@ public class AgentQLearningCoach {
         double gamma = 0.99;
         double epsilon = 1.0;
         double epsilonDecay = 0.01;
-        int numberOfEpisodes = 5000;
+        int numberOfEpisodes = 1000;
         AgentQLearningCoach agent = new AgentQLearningCoach(alpha, gamma, epsilon, epsilonDecay);
 
         Environment environment = new Environment(CaveMatrix.SECOND_CAVE.getCave());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
         String timestamp = LocalDateTime.now().format(formatter);
 
-        String episodesReportFileName = String.format("train_second_cave/train_%s_episodesReport_alpha%.2f_gamma%.2f_epsilon%.2f_epsilonDecay%.2f_%dk.csv",
+        String episodesReportFileName = String.format("train_second_cave/train_%s_episodesReport_alpha%.2f_gamma%.2f_epsilon%.2f_epsilonDecay%.2f_%d.csv",
                 timestamp, alpha, gamma, epsilon, epsilonDecay, numberOfEpisodes);
-        String qTableFileName = String.format("train_second_cave/train_%s_qTable4x4_alpha%.2f_gamma%.2f_epsilon%.2f_epsilonDecay%.2f_episodes_%dk.dat",
+        String qTableFileName = String.format("train_second_cave/train_%s_qTable4x4_alpha%.2f_gamma%.2f_epsilon%.2f_epsilonDecay%.2f_episodes_%d.dat",
                 timestamp, alpha, gamma, epsilon, epsilonDecay, numberOfEpisodes);
 
         agent.train(environment, numberOfEpisodes, episodesReportFileName);

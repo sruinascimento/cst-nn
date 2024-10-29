@@ -136,7 +136,8 @@ public class WumpusPlayer {
     }
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        WumpusPlayer player = new WumpusPlayer(CaveMatrix.SECOND_CAVE.getCave(), "train_second_cave/train_20241023_224902_qTable4x4_alpha0.10_gamma0.99_epsilon1.00_epsilonDecay0.01_episodes_5000k.dat");
+//        WumpusPlayer player = new WumpusPlayer(CaveMatrix.SECOND_CAVE.getCave(), "train_second_cave/train_20241027_192227_qTable4x4_alpha0.10_gamma0.99_epsilon1.00_epsilonDecay0.01_episodes_1000.dat");
+        WumpusPlayer player = new WumpusPlayer(CaveMatrix.SECOND_CAVE.getCave(), "train_second_cave/train_20241028_210025_qTable4x4_alpha0.10_gamma0.99_epsilon1.00_epsilonDecay0.00_episodes_2000.dat");
         player.play();
     }
 }
